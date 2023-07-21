@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.socialmedia.model.Chat;
 import com.example.socialmedia.model.Message;
+import com.example.socialmedia.model.User;
 
 @SpringBootTest
 public class MessageRepositoryTest {
@@ -19,7 +20,9 @@ public class MessageRepositoryTest {
     public void saveMessage() {
         Chat chat = new Chat("Chat Name");
 
-        Message message = new Message("This is second message!", chat);
+        User user = new User("Gogo", "gogo@gmail.com");
+
+        Message message = new Message("This is second message!", chat, user);
 
         repository.save(message);
     }

@@ -23,19 +23,22 @@ public class Message {
     @SequenceGenerator(name = "messageSeqGen", allocationSize = 1)
     @GeneratedValue(generator = "messageSeqGen")
     private Long id;
-    
+
     @Column(name = "text", nullable = false)
     private String text;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false)
     private Chat chat;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User creator;
     
-    public Message(String text, Chat chat) {
+    public Message(String text, Chat chat, User creator) {
         this.text = text;
         this.chat = chat;
+        this.creator = creator;
     }
-
-
 
 }
