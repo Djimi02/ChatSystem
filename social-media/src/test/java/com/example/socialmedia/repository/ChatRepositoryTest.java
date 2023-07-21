@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.socialmedia.model.Chat;
+import com.example.socialmedia.model.Message;
 
 @SpringBootTest
 public class ChatRepositoryTest {
@@ -17,6 +18,8 @@ public class ChatRepositoryTest {
     @Test
     public void saveChat() {
         Chat chat = new Chat("name1");
+
+        chat.addMessage(new Message("Message", chat));
 
         repository.save(chat);
     }

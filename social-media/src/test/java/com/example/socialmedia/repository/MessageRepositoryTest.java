@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.socialmedia.model.Chat;
 import com.example.socialmedia.model.Message;
 
 @SpringBootTest
@@ -16,7 +17,9 @@ public class MessageRepositoryTest {
 
     @Test
     public void saveMessage() {
-        Message message = new Message("This is second message!");
+        Chat chat = new Chat("Chat Name");
+
+        Message message = new Message("This is second message!", chat);
 
         repository.save(message);
     }
