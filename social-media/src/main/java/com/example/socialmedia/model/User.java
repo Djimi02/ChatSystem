@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "table_user")
 public class User {
     
-    @Id()
-    @SequenceGenerator(name = "mySeqGen", allocationSize = 1)
-    @GeneratedValue(generator = "mySeqGen")
+    @Id
+    @SequenceGenerator(name = "userSeqGen", allocationSize = 1)
+    @GeneratedValue(generator = "userSeqGen")
     private Long id;
     @Column(nullable = false)
     private String name;
