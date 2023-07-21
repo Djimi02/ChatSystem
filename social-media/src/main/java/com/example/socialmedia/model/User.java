@@ -3,8 +3,8 @@ package com.example.socialmedia.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 public class User {
     
     @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "mySeqGen", allocationSize = 1)
+    @GeneratedValue(generator = "mySeqGen")
     private Long id;
     @Column(nullable = false)
     private String name;
