@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
@@ -30,12 +31,19 @@ public class Chat {
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Message> messages = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "chats", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<User> users = new ArrayList<>();
+
     public Chat(String name) {
         this.name = name;
     }
 
     public void addMessage(Message message) {
         this.messages.add(message);
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
     }
 
 }

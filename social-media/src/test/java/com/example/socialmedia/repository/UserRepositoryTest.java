@@ -20,7 +20,7 @@ public class UserRepositoryTest {
         User user = new User("Gogo", "gogo0@gmail.com");
 
         Chat chat = new Chat("Chat name");
-        // chat.addUser(user);
+        chat.addUser(user);
 
         user.addChat(chat);
 
@@ -31,7 +31,13 @@ public class UserRepositoryTest {
     public void retrieveAllUsers() {
         List<User> users = repository.findAll();
 
-        System.out.println("USERS = " + users);
+        for (User user : users) {
+            System.out.println("User name = " + user.getName());
+            System.out.println("User is in chats = " + user.getChats().size());
+            System.out.println("Chat name = " + user.getChats().get(0).getName());
+            System.out.println("Chat members = " + user.getChats().get(0).getUsers().size());
+        }
+
     }
 
 }
