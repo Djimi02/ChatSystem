@@ -28,10 +28,10 @@ public class Chat {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Message> messages = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "chats", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "chats", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<User> users = new ArrayList<>();
 
     public Chat(String name) {

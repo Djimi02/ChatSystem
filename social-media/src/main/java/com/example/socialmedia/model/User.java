@@ -34,7 +34,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_chat_map",
         joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

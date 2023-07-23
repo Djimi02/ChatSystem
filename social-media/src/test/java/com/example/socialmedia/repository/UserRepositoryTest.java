@@ -19,6 +19,13 @@ public class UserRepositoryTest {
     public void addUser() {
         User user = new User("Gogo", "gogo0@gmail.com");
 
+        repository.save(user);
+    }
+
+    @Test
+    public void addUserWithChat() {
+        User user = new User("Gogo", "gogo0@gmail.com");
+
         Chat chat = new Chat("Chat name");
         chat.addUser(user);
 

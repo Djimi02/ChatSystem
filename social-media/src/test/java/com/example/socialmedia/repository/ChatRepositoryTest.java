@@ -18,6 +18,13 @@ public class ChatRepositoryTest {
 
     @Test
     public void saveChat() {
+        Chat chat = new Chat("Chat Group 1");
+
+        repository.save(chat);
+    }
+
+    @Test
+    public void saveChatWithMessage() {
         Chat chat = new Chat("name1");
 
         User user = new User("Masha", "masha@gmail.com");
@@ -31,7 +38,10 @@ public class ChatRepositoryTest {
     public void retrieveAllChats() {
         List<Chat> chats = repository.findAll();
 
-        System.out.println("CHATS = " + chats);
+        for (Chat chat : chats) {
+            System.out.println("CHAT NAME = " + chat.getName());
+            System.out.println("CHAT MESSAGE NUM = " + chat.getMessages().size());
+        }
     }
 
 }
