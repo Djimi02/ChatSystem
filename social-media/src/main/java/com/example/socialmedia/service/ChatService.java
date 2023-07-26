@@ -12,6 +12,8 @@ import com.example.socialmedia.repository.ChatRepository;
 import com.example.socialmedia.repository.MessageRepository;
 import com.example.socialmedia.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ChatService {
     
@@ -32,7 +34,8 @@ public class ChatService {
         this.chatRepository.save(chat);
     }
 
-    public void addUser(Long chatID, Long userID) {
+    @Transactional
+    public void addUserToChat(Long chatID, Long userID) {
         Optional<Chat> chatOpt = chatRepository.findById(chatID);
         Chat chat;
         if (chatOpt.isPresent()) {
@@ -50,13 +53,10 @@ public class ChatService {
         }
 
         chat.addUser(user);
-        chatRepository.save(chat);
-
         user.addChat(chat);
-        userRepository.save(user);
     }
 
-    public void addMessage(Long chatID, Long userID, Message message) {
+    public void addMessageToChat(Long chatID, Long userID, Message message) {
         Optional<Chat> chatOpt = chatRepository.findById(chatID);
         Chat chat;
         if (chatOpt.isPresent()) {
@@ -76,9 +76,28 @@ public class ChatService {
         message.setCreator(user);
         message.setChat(chat);
         messageRepository.save(message);
+    }
 
-        // chat.addMessage(message);
-        // chatRepository.save(chat);
+    @Transactional
+    public void removeUserFromChat(Long chatID, Long userID) {
+        Optional<Chat> chatOpt = chatRepository.findById(chatID);
+        Chat chat;
+        if (chatOpt.isPresent()) {
+            chat = chatOpt.get();
+        } else {
+            throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
+        }
+
+        Optional<User> userOpt = userRepository.findById(userID);
+        User user;
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+        } else {
+            throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
+        }
+
+        chat.removeUser(user);
+        user.removeChat(chat);
     }
 
 }

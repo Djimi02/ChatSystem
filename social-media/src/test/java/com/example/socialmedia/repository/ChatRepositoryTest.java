@@ -41,6 +41,7 @@ public class ChatRepositoryTest {
         for (Chat chat : chats) {
             System.out.println("CHAT NAME = " + chat.getName());
             System.out.println("CHAT MESSAGE NUM = " + chat.getMessages().size());
+            System.out.println("CHAT MEMEBERS = " + chat.getUsers().size());
         }
     }
 

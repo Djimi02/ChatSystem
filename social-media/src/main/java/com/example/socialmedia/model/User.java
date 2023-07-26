@@ -51,4 +51,14 @@ public class User {
         this.chats.add(chat);
     }
 
+    public void removeChat(Chat chat) {
+        Long chatID = chat.getId();
+        for (Chat chat1 : this.chats) {
+            if (chat1.getId() == chatID) {
+                this.chats.remove(chat1);
+                break;
+            }
+        }
+    }
+
 }

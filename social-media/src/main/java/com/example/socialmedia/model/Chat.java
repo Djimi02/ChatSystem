@@ -42,8 +42,26 @@ public class Chat {
         this.messages.add(message);
     }
 
+    public void removeMessage(Message message) {
+        for (Message message1 : messages) {
+            if (message1.getId() == message.getId()) {
+                this.messages.remove(message1);
+                break;
+            }
+        }
+    }
+
     public void addUser(User user) {
         this.users.add(user);
+    }
+
+    public void removeUser(User user) {
+        for (User user1 : this.users) {
+            if (user1.getId() == user.getId()) {
+                this.users.remove(user1);
+                break;
+            }
+        }
     }
 
 }

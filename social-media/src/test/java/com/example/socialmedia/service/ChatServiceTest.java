@@ -27,7 +27,7 @@ public class ChatServiceTest {
         Long chatID = 1l;
         Long userID = 1l;
 
-        service.addUser(chatID, userID);
+        service.addUserToChat(chatID, userID);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ChatServiceTest {
         Long userID = 1l;
 
         try {
-            service.addUser(chatID, userID);
+            service.addUserToChat(chatID, userID);
 
             assertTrue(false);
         } catch (IllegalArgumentException e) {
@@ -53,12 +53,19 @@ public class ChatServiceTest {
         Long userID = 1l;
         Message message = new Message("Message 2 in chat 1.");
 
-        service.addMessage(chatID, userID, message);
+        service.addMessageToChat(chatID, userID, message);
     }
 
     @Test
     public void retrieve() {
     }
 
+    @Test
+    public void removeUserFromChatTest() {
+        Long userID = 1l;
+        Long chatID = 1l;
+
+        service.removeUserFromChat(chatID, userID);
+    }
 
 }
