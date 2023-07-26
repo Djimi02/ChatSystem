@@ -1,5 +1,7 @@
 package com.example.socialmedia.service;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +15,7 @@ public class ChatServiceTest {
     @Autowired
     private ChatService service;
 
+    @Test
     public void saveChatTest() {
         Chat chat = new Chat("Chat Group 1");
 
@@ -28,6 +31,23 @@ public class ChatServiceTest {
     }
 
     @Test
+    public void addUserWithWrongChatID() {
+        Long chatID = -1l;
+        Long userID = 1l;
+
+        try {
+            service.addUser(chatID, userID);
+
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+        
+    }
+
+    @Test
     public void addMessageTest() {
         Long chatID = 1l;
         Long userID = 1l;
@@ -39,5 +59,6 @@ public class ChatServiceTest {
     @Test
     public void retrieve() {
     }
+
 
 }

@@ -1,5 +1,7 @@
 package com.example.socialmedia.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +33,19 @@ public class ChatService {
     }
 
     public void addUser(Long chatID, Long userID) {
-        Chat chat = chatRepository.findById(chatID).get();
-
-        User user = userRepository.findById(userID).get();
-
-        if (chat == null) {
+        Optional<Chat> chatOpt = chatRepository.findById(chatID);
+        Chat chat;
+        if (chatOpt.isPresent()) {
+            chat = chatOpt.get();
+        } else {
             throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
-        } else if (user == null) {
+        }
+
+        Optional<User> userOpt = userRepository.findById(userID);
+        User user;
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+        } else {
             throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
         }
 
@@ -49,13 +57,19 @@ public class ChatService {
     }
 
     public void addMessage(Long chatID, Long userID, Message message) {
-        Chat chat = chatRepository.findById(chatID).get();
-
-        User user = userRepository.findById(userID).get();
-
-        if (chat == null) {
+        Optional<Chat> chatOpt = chatRepository.findById(chatID);
+        Chat chat;
+        if (chatOpt.isPresent()) {
+            chat = chatOpt.get();
+        } else {
             throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
-        } else if (user == null) {
+        }
+
+        Optional<User> userOpt = userRepository.findById(userID);
+        User user;
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+        } else {
             throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
         }
 
@@ -65,7 +79,6 @@ public class ChatService {
 
         // chat.addMessage(message);
         // chatRepository.save(chat);
-
     }
 
 }
