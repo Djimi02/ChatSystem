@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Chat {
-    
+
     @Id
     @SequenceGenerator(name = "chatSeqGen", allocationSize = 1)
     @GeneratedValue(generator = "chatSeqGen")
@@ -28,7 +28,7 @@ public class Chat {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "chat", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Message> messages = new ArrayList<>();
 
     @ManyToMany(mappedBy = "chats", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

@@ -17,7 +17,7 @@ public class UserRepositoryTest {
 
     @Test
     public void addUser() {
-        User user = new User("Gogo", "gogo0@gmail.com");
+        User user = new User("Masha", "masha0@gmail.com");
 
         repository.save(user);
     }

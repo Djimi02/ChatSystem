@@ -3,6 +3,7 @@ package com.example.socialmedia.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.example.socialmedia.model.Chat;
@@ -25,6 +26,10 @@ public class ChatService {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    @Lazy
+    private ChatService chatService;
 
     public void saveChat(Chat chat) {
         if (chat.getName() == null || chat.getName().isEmpty()) {
@@ -79,7 +84,7 @@ public class ChatService {
     }
 
     @Transactional
-    public void removeUserFromChat(Long chatID, Long userID) {
+    public void removeUserChatRelation(Long chatID, Long userID) {
         Optional<Chat> chatOpt = chatRepository.findById(chatID);
         Chat chat;
         if (chatOpt.isPresent()) {
@@ -98,6 +103,21 @@ public class ChatService {
 
         chat.removeUser(user);
         user.removeChat(chat);
+    }
+
+    public void deleteChat(Long chatID) {
+        Optional<Chat> chatOpt = chatRepository.findById(chatID);
+        Chat chat;
+        if (chatOpt.isPresent()) {
+            chat = chatOpt.get();
+        } else {
+            throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
+        }
+
+        for (User user : chat.getUsers()) {
+            chatService.removeUserChatRelation(chatID, user.getId());
+        }
+        chatRepository.delete(chat);
     }
 
 }

@@ -23,8 +23,8 @@ public class ChatServiceTest {
     }
 
     @Test
-    public void addUserTest() {
-        Long chatID = 1l;
+    public void addUserToChatTest() {
+        Long chatID = 2l;
         Long userID = 1l;
 
         service.addUserToChat(chatID, userID);
@@ -44,14 +44,13 @@ public class ChatServiceTest {
         } catch (Exception e) {
             assertTrue(false);
         }
-        
     }
 
     @Test
-    public void addMessageTest() {
-        Long chatID = 1l;
-        Long userID = 1l;
-        Message message = new Message("Message 2 in chat 1.");
+    public void addMessageToChatTest() {
+        Long chatID = 2l;
+        Long userID = 2l;
+        Message message = new Message("Message 1 in chat 1.");
 
         service.addMessageToChat(chatID, userID, message);
     }
@@ -65,7 +64,14 @@ public class ChatServiceTest {
         Long userID = 1l;
         Long chatID = 1l;
 
-        service.removeUserFromChat(chatID, userID);
+        service.removeUserChatRelation(chatID, userID);
+    }
+
+    @Test
+    public void deleteChatTest() {
+        Long chatID = 2l;
+
+        service.deleteChat(chatID);
     }
 
 }
