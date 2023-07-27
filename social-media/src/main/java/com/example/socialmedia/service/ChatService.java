@@ -44,6 +44,7 @@ public class ChatService {
      * deletes all messages associated with this chat. Finally, deletes the chat
      * itself.
      * @param chatID - the id of the chat to be deleted
+     * @throws IllegalArgumentException when no chat exists with the provided id
      */
     public void deleteChat(Long chatID) {
         Optional<Chat> chatOpt = chatRepository.findById(chatID);

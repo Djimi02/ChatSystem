@@ -17,14 +17,14 @@ public class ChatServiceTest {
 
     @Test
     public void saveChatTest() {
-        Chat chat = new Chat("Chat Group 1");
+        Chat chat = new Chat("Chat Group 2");
 
         service.saveChat(chat);
     }
 
     @Test
     public void addUserToChatTest() {
-        Long chatID = 2l;
+        Long chatID = 1l;
         Long userID = 1l;
 
         service.addUserToChat(chatID, userID);
@@ -48,9 +48,9 @@ public class ChatServiceTest {
 
     @Test
     public void addMessageToChatTest() {
-        Long chatID = 3l;
+        Long chatID = 2l;
         Long userID = 1l;
-        Message message = new Message("Message 2 in chat 1.");
+        Message message = new Message("Message 3 in chat 2.");
 
         service.addMessageToChat(chatID, userID, message);
     }
