@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.socialmedia.model.Chat;
+import com.example.socialmedia.model.Message;
 import com.example.socialmedia.model.User;
 import com.example.socialmedia.repository.UserRepository;
 
@@ -18,6 +19,9 @@ public class UserService {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    private MessageService messageService;
 
     public void saveUser(User user) {
         if (user == null) {
@@ -50,6 +54,15 @@ public class UserService {
 
         for (Chat chat : user.getChats()) {
             chatService.removeUserChatRelation(chat.getId(), userID);
+
+            // removes the references of all messages in the chat to this user
+            for (Message message : chat.getMessages()) {
+                if (message.getCreator() == null) {
+                    continue;
+                } else if (message.getCreator().getId() == userID) {
+                    messageService.removeCreatorReference(message.getId());
+                }
+            }
         }
 
         userRepository.deleteById(userID);
