@@ -125,6 +125,10 @@ public class ChatService {
             throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
         }
 
+        if (!chat.doesUserExist(userID)) {
+            throw new IllegalArgumentException("User with id=" + userID + " is not part of the chat with id= " + chatID);
+        }
+
         message.setCreator(user);
         message.setChat(chat);
         messageRepository.save(message);

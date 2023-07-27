@@ -64,4 +64,14 @@ public class Chat {
         }
     }
 
+    public boolean doesUserExist(Long userID) {
+        for (User user : this.users) {
+            if (user.getId() == userID) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

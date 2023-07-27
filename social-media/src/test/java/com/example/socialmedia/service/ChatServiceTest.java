@@ -50,9 +50,26 @@ public class ChatServiceTest {
     public void addMessageToChatTest() {
         Long chatID = 3l;
         Long userID = 1l;
-        Message message = new Message("Message 1 in chat 1.");
+        Message message = new Message("Message 2 in chat 1.");
 
         service.addMessageToChat(chatID, userID, message);
+    }
+
+    @Test
+    public void addMessageToChatWithWrongUserTest() {
+        Long chatID = 3l;
+        Long userID = 1l;
+        Message message = new Message("Message 2 in chat 1.");
+
+        try {
+            service.addMessageToChat(chatID, userID, message);
+
+            assertTrue(false);
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            assertTrue(false);
+        }
     }
 
     @Test
