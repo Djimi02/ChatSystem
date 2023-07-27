@@ -48,8 +48,8 @@ public class ChatServiceTest {
 
     @Test
     public void addMessageToChatTest() {
-        Long chatID = 2l;
-        Long userID = 2l;
+        Long chatID = 3l;
+        Long userID = 1l;
         Message message = new Message("Message 1 in chat 1.");
 
         service.addMessageToChat(chatID, userID, message);
@@ -72,6 +72,13 @@ public class ChatServiceTest {
         Long chatID = 2l;
 
         service.deleteChat(chatID);
+    }
+
+    @Test
+    public void deleteMessageTest() {
+        Long messageID = 3l;
+
+        service.deleteMessage(messageID);
     }
 
 }

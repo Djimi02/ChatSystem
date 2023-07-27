@@ -39,6 +39,29 @@ public class ChatService {
         this.chatRepository.save(chat);
     }
 
+    /**
+     * Removes all relations between users that are in the chat and the chat and 
+     * deletes all messages associated with this chat. Finally, deletes the chat
+     * itself.
+     * @param chatID - the id of the chat to be deleted
+     */
+    public void deleteChat(Long chatID) {
+        Optional<Chat> chatOpt = chatRepository.findById(chatID);
+        Chat chat;
+        if (chatOpt.isPresent()) {
+            chat = chatOpt.get();
+        } else {
+            throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
+        }
+
+        for (User user : chat.getUsers()) {
+            chatService.removeUserChatRelation(chatID, user.getId());
+        }
+        chatRepository.delete(chat);
+    }
+
+    /* ================================== CHAT - USER ============================================ */
+
     @Transactional
     public void addUserToChat(Long chatID, Long userID) {
         Optional<Chat> chatOpt = chatRepository.findById(chatID);
@@ -59,28 +82,6 @@ public class ChatService {
 
         chat.addUser(user);
         user.addChat(chat);
-    }
-
-    public void addMessageToChat(Long chatID, Long userID, Message message) {
-        Optional<Chat> chatOpt = chatRepository.findById(chatID);
-        Chat chat;
-        if (chatOpt.isPresent()) {
-            chat = chatOpt.get();
-        } else {
-            throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
-        }
-
-        Optional<User> userOpt = userRepository.findById(userID);
-        User user;
-        if (userOpt.isPresent()) {
-            user = userOpt.get();
-        } else {
-            throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
-        }
-
-        message.setCreator(user);
-        message.setChat(chat);
-        messageRepository.save(message);
     }
 
     @Transactional
@@ -105,7 +106,9 @@ public class ChatService {
         user.removeChat(chat);
     }
 
-    public void deleteChat(Long chatID) {
+    /* ================================== CHAT - MESSAGE ============================================ */
+
+    public void addMessageToChat(Long chatID, Long userID, Message message) {
         Optional<Chat> chatOpt = chatRepository.findById(chatID);
         Chat chat;
         if (chatOpt.isPresent()) {
@@ -114,10 +117,25 @@ public class ChatService {
             throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
         }
 
-        for (User user : chat.getUsers()) {
-            chatService.removeUserChatRelation(chatID, user.getId());
+        Optional<User> userOpt = userRepository.findById(userID);
+        User user;
+        if (userOpt.isPresent()) {
+            user = userOpt.get();
+        } else {
+            throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
         }
-        chatRepository.delete(chat);
+
+        message.setCreator(user);
+        message.setChat(chat);
+        messageRepository.save(message);
+    }
+
+    public void deleteMessage(Long messageID) {
+        if (messageRepository.findById(messageID).isEmpty()) {
+            throw new IllegalArgumentException("Message with id=" + messageID + " does not exists.");
+        }
+
+        messageRepository.deleteById(messageID);
     }
 
 }
