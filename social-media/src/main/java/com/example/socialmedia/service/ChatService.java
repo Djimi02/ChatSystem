@@ -32,7 +32,9 @@ public class ChatService {
     private ChatService chatService;
 
     public void saveChat(Chat chat) {
-        if (chat.getName() == null || chat.getName().isEmpty()) {
+        if (chat.getName() == null) {
+            throw new IllegalArgumentException("Chat name should be provided.");
+        } else if (chat.getName().isEmpty()) {
             throw new IllegalArgumentException("Chat name should be provided.");
         }
 
@@ -40,7 +42,7 @@ public class ChatService {
     }
 
     /**
-     * Removes all relations between users that are in the chat and the chat and 
+     * Removes all relations between users that are in the chat and the chat, and 
      * deletes all messages associated with this chat. Finally, deletes the chat
      * itself.
      * @param chatID - the id of the chat to be deleted
