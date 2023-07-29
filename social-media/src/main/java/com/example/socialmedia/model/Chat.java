@@ -3,6 +3,8 @@ package com.example.socialmedia.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,9 +30,11 @@ public class Chat {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "chat", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Message> messages = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "chats", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<User> users = new ArrayList<>();
 

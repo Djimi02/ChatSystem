@@ -24,10 +24,13 @@ public class ChatServiceTest {
 
     @Test
     public void addUserToChatTest() {
-        Long chatID = 1l;
-        Long userID = 1l;
+        // Long chatID = 1l;
+        // Long userID = 2l;
 
-        service.addUserToChat(chatID, userID);
+        service.addUserToChat(1l, 1l);
+        // service.addUserToChat(1l, 2l);
+        // service.addUserToChat(2l, 1l);
+        // service.addUserToChat(2l, 2l);
     }
 
     @Test
@@ -79,7 +82,7 @@ public class ChatServiceTest {
     @Test
     public void removeUserFromChatTest() {
         Long userID = 1l;
-        Long chatID = 1l;
+        Long chatID = 2l;
 
         service.removeUserChatRelation(chatID, userID);
     }

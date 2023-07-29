@@ -18,7 +18,7 @@ public class ChatRepositoryTest {
 
     @Test
     public void saveChat() {
-        Chat chat = new Chat("Chat Group 1");
+        Chat chat = new Chat("Chat Group 2");
 
         repository.save(chat);
     }

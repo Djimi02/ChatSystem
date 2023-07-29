@@ -1,5 +1,7 @@
 package com.example.socialmedia.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -22,6 +24,10 @@ public class UserService {
 
     @Autowired
     private MessageService messageService;
+
+    public List<User> retrieveAllUsers() {
+        return userRepository.findAll();
+    }
 
     public void saveUser(User user) {
         if (user == null) {
@@ -52,7 +58,9 @@ public class UserService {
         }
         user = userOpt.get();
 
-        for (Chat chat : user.getChats()) {
+        List<Chat> chats = new ArrayList<>(user.getChats());
+
+        for (Chat chat : chats) {
             chatService.removeUserChatRelation(chat.getId(), userID);
 
             // removes the references of all messages in the chat to this user
@@ -63,6 +71,7 @@ public class UserService {
                     messageService.removeCreatorReference(message.getId());
                 }
             }
+
         }
 
         userRepository.deleteById(userID);

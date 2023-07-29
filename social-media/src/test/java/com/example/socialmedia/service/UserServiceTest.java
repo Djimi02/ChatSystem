@@ -47,8 +47,8 @@ public class UserServiceTest {
 
     @Test
     public void savingValidUser() {
-        String name = "Gogo";
-        String email = "gogo@gmail.com";
+        String name = "Masha";
+        String email = "masha@gmail.com";
         User user = new User(name, email);
 
         service.saveUser(user);
