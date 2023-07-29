@@ -51,6 +51,7 @@ public class UserService {
     }
 
     public void deleteUser(Long userID) {
+
         Optional<User> userOpt = userRepository.findById(userID);
         User user;
         if (userOpt.isEmpty()) {
@@ -75,5 +76,16 @@ public class UserService {
         }
 
         userRepository.deleteById(userID);
+    }
+
+    public void updateUser(Long userID, User newUser) {
+        Optional<User> userOpt = userRepository.findById(userID);
+        if (userOpt.isEmpty()) {
+            throw new IllegalArgumentException("User with id=" + userID + " does not exist.");
+        }
+        
+        newUser.setId(userID);
+
+        userRepository.save(newUser);
     }
 }

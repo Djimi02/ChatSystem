@@ -128,4 +128,12 @@ public class UserServiceTest {
 
         service.deleteUser(userID);
     }
+
+    @Test
+    public void updateUserTest() {
+        Long userID = 3l;
+        User newUser = new User("Gogo", "gogo@gmail.com");
+
+        service.updateUser(userID, newUser);
+    }
 }
