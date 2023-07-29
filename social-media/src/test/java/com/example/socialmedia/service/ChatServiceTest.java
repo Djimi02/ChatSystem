@@ -17,7 +17,7 @@ public class ChatServiceTest {
 
     @Test
     public void saveChatTest() {
-        Chat chat = new Chat("Chat Group 2");
+        Chat chat = new Chat("Chat Group 1");
 
         service.saveChat(chat);
     }
@@ -27,7 +27,7 @@ public class ChatServiceTest {
         // Long chatID = 1l;
         // Long userID = 2l;
 
-        service.addUserToChat(1l, 1l);
+        service.addUserToChat(1l, 3l);
         // service.addUserToChat(1l, 2l);
         // service.addUserToChat(2l, 1l);
         // service.addUserToChat(2l, 2l);
@@ -51,9 +51,9 @@ public class ChatServiceTest {
 
     @Test
     public void addMessageToChatTest() {
-        Long chatID = 2l;
-        Long userID = 1l;
-        Message message = new Message("Message 3 in chat 2.");
+        Long chatID = 1l;
+        Long userID = 3l;
+        Message message = new Message("Message 4 in chat 1.");
 
         service.addMessageToChat(chatID, userID, message);
     }
@@ -89,7 +89,7 @@ public class ChatServiceTest {
 
     @Test
     public void deleteChatTest() {
-        Long chatID = 2l;
+        Long chatID = 1l;
 
         service.deleteChat(chatID);
     }

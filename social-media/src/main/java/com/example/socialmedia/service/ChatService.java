@@ -1,5 +1,7 @@
 package com.example.socialmedia.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,8 @@ public class ChatService {
             throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
         }
 
-        for (User user : chat.getUsers()) {
+        List<User> users = new ArrayList<>(chat.getUsers());
+        for (User user : users) {
             chatService.removeUserChatRelation(chatID, user.getId());
         }
         chatRepository.delete(chat);
