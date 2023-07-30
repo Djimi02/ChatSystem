@@ -39,4 +39,11 @@ public class ChatController {
 
         return "The name of chat with id=" + chatID + " is updated.";
     }
+
+    @PostMapping("/join")
+    public String addUserToChat(@RequestParam(name = "chatid") Long chatID, @RequestParam(name = "userid") Long userID) {
+        chatService.addUserToChat(chatID, userID);
+
+        return "User with id=" + userID + " is added to chat with id=" + chatID + ".";
+    }
 }
