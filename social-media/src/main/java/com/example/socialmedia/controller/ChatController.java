@@ -46,4 +46,11 @@ public class ChatController {
 
         return "User with id=" + userID + " is added to chat with id=" + chatID + ".";
     }
+
+    @PostMapping("/leave")
+    public String removeUserFromChat(@RequestParam(name = "chatid") Long chatID, @RequestParam(name = "userid") Long userID) {
+        chatService.removeUserChatRelation(chatID, userID);
+
+        return "User with id=" + userID + " is removed from chat with id=" + chatID + ".";
+    }
 }

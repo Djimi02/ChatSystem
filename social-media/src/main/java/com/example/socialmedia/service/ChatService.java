@@ -98,6 +98,10 @@ public class ChatService {
             throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
         }
 
+        if (chat.doesUserExist(userID)) {
+            throw new IllegalArgumentException("User with id=" + userID + " is already part of the chat with id=" + chatID + ".");
+        }
+
         chat.addUser(user);
         user.addChat(chat);
     }
@@ -118,6 +122,10 @@ public class ChatService {
             user = userOpt.get();
         } else {
             throw new IllegalArgumentException("User with id=" + userID + " does not exists.");
+        }
+
+        if (!chat.doesUserExist(userID)) {
+            throw new IllegalArgumentException("User with id=" + userID + " is not part of the chat with id=" + chatID + ".");
         }
 
         chat.removeUser(user);
