@@ -66,6 +66,18 @@ public class ChatService {
         chatRepository.delete(chat);
     }
 
+    public void updateChatName(Long chatID, String chatName) {
+        Optional<Chat> chatOpt = chatRepository.findById(chatID);
+        Chat chat;
+        if (chatOpt.isPresent()) {
+            chat = chatOpt.get();
+        } else {
+            throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
+        }
+        chat.setName(chatName);
+        chatRepository.save(chat);
+    }
+
     /* ================================== CHAT - USER ============================================ */
 
     @Transactional

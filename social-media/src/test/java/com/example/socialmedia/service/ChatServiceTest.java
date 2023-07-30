@@ -101,4 +101,12 @@ public class ChatServiceTest {
         service.deleteMessage(messageID);
     }
 
+    @Test
+    public void updateChatNameTest() {
+        Long chatID = 4l;
+        String newChatName = "New Chat Name";
+
+        service.updateChatName(chatID, newChatName);
+    }
+
 }
