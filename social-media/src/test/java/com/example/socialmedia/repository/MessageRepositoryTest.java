@@ -20,7 +20,7 @@ public class MessageRepositoryTest {
     public void saveMessage() {
         Chat chat = new Chat("Chat Name");
 
-        User user = new User("Gogo", "gogo@gmail.com");
+        User user = new User("Gogo", "gogo@gmail.com", "pass", "User");
 
         Message message = new Message("This is second message!", chat, user);
 

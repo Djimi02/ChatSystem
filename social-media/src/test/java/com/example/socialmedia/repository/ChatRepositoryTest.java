@@ -27,7 +27,7 @@ public class ChatRepositoryTest {
     public void saveChatWithMessage() {
         Chat chat = new Chat("name1");
 
-        User user = new User("Masha", "masha@gmail.com");
+        User user = new User("Masha", "masha@gmail.com", "pass", "User");
 
         chat.addMessage(new Message("Message", chat, user));
 

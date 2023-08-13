@@ -47,9 +47,11 @@ public class UserServiceTest {
 
     @Test
     public void savingValidUser() {
-        String name = "Masha";
-        String email = "masha@gmail.com";
-        User user = new User(name, email);
+        String name = "Gogo";
+        String email = "gogo@gmail.com";
+        String pass = "pass";
+        String role = "Admin";
+        User user = new User(name, email, pass, role);
 
         service.saveUser(user);
     }
@@ -58,7 +60,9 @@ public class UserServiceTest {
     public void savingUserWithNullName() {
         String name = null;
         String email = "mitko@gmail.com";
-        User user = new User(name, email);
+        String pass = "pass";
+        String role = "User";
+        User user = new User(name, email, pass, role);
 
         try {
             service.saveUser(user);
@@ -75,7 +79,9 @@ public class UserServiceTest {
     public void savingUserWithNullEmail() {
         String name = "Mitko";
         String email = null;
-        User user = new User(name, email);
+        String pass = "pass";
+        String role = "User";
+        User user = new User(name, email, pass, role);
 
         try {
             service.saveUser(user);
@@ -92,7 +98,9 @@ public class UserServiceTest {
     public void savingUserWithEmptyName() {
         String name = "";
         String email = "mitko@gmail.com";
-        User user = new User(name, email);
+        String pass = "pass";
+        String role = "User";
+        User user = new User(name, email, pass, role);
 
         try {
             service.saveUser(user);
@@ -109,7 +117,9 @@ public class UserServiceTest {
     public void savingUserWithEmptyEmail() {
         String name = "Mitko";
         String email = "";
-        User user = new User(name, email);
+        String pass = "pass";
+        String role = "User";
+        User user = new User(name, email, pass, role);
 
         try {
             service.saveUser(user);
@@ -132,7 +142,7 @@ public class UserServiceTest {
     @Test
     public void updateUserTest() {
         Long userID = 3l;
-        User newUser = new User("Gogo", "gogo@gmail.com");
+        User newUser = new User("Gogo", "gogo@gmail.com", "pass", "User");
 
         service.updateUser(userID, newUser);
     }

@@ -6,15 +6,19 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.socialmedia.model.Chat;
 import com.example.socialmedia.model.Message;
 import com.example.socialmedia.model.User;
+import com.example.socialmedia.model.UserDetailsImpl;
 import com.example.socialmedia.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     
     @Autowired
     private UserRepository userRepository;
@@ -87,5 +91,15 @@ public class UserService {
         newUser.setId(userID);
 
         userRepository.save(newUser);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isEmpty()) {
+            throw new IllegalArgumentException("User with email=" + email + " does not exist.");
+        }
+
+        return new UserDetailsImpl(userOpt.get());
     }
 }
