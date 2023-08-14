@@ -27,6 +27,11 @@ public class UserController {
         return userService.retrieveAllUsers();
     }
 
+    @GetMapping("/auth")
+    public String getAythenticatedUser() {
+        return userService.retrieveAuthenticatedUser();
+    }
+
     @PostMapping("/save")
     public String saveUser(@RequestBody User user) {
 

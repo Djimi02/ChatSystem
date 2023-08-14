@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -101,5 +103,25 @@ public class UserService implements UserDetailsService {
         }
 
         return new UserDetailsImpl(userOpt.get());
+    }
+
+    public String retrieveAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.isAuthenticated()) {
+            return "No user is authenticated!";
+        }
+
+        Optional<User> userOpt = userRepository.findByEmail(authentication.getName());
+        if (userOpt.isEmpty()) {
+            return "Bruh!";
+        }
+        User user = userOpt.get();
+
+        String output = "Name: " + user.getName() + "\n" + 
+                        "Email: " + user.getEmail() + "\n" + 
+                        "Role: " + user.getRole() + "\n" + 
+                        "Number of chats: " + user.getChats().size();
+
+        return output;
     }
 }
