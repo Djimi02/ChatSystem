@@ -25,10 +25,14 @@ public class WebSecurityConfig {
         http
             .userDetailsService(userDetailsService)
             .authorizeHttpRequests(auth -> 
-                                                auth.requestMatchers("/user/all").hasAuthority("Admin")
-                                                .requestMatchers("/user/**").hasAnyAuthority("Admin", "User")
-                                                .requestMatchers("/chat").permitAll()
+                                                auth
+                                                .requestMatchers("/user/all").hasAuthority("Admin")
+                                                // .requestMatchers("/user/**").hasAnyAuthority("Admin", "User")
+                                                // .requestMatchers("/chat").permitAll()
+                                                .requestMatchers("/logout").permitAll()
+                                                .anyRequest().authenticated()
                                     )
+            .logout((logout) -> logout.logoutUrl("/logout").permitAll())
             .httpBasic(Customizer.withDefaults());
 
         return http.build();
