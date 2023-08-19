@@ -27,12 +27,12 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(auth -> 
                                                 auth
                                                 .requestMatchers("/user/all").hasAuthority("Admin")
-                                                // .requestMatchers("/user/**").hasAnyAuthority("Admin", "User")
+                                                .requestMatchers("/user/**").hasAnyAuthority("Admin", "User")
                                                 // .requestMatchers("/chat").permitAll()
                                                 .requestMatchers("/logout").permitAll()
-                                                .anyRequest().authenticated()
+                                                .requestMatchers("/about").permitAll()
+                                                .requestMatchers("/").permitAll()
                                     )
-            .logout((logout) -> logout.logoutUrl("/logout").permitAll())
             .httpBasic(Customizer.withDefaults());
 
         return http.build();

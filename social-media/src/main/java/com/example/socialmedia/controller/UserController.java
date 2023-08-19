@@ -27,7 +27,7 @@ public class UserController {
         return userService.retrieveAllUsers();
     }
 
-    @GetMapping("/auth")
+    @GetMapping("/profile")
     public String getAythenticatedUser() {
         return userService.retrieveAuthenticatedUser();
     }
