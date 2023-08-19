@@ -27,9 +27,9 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(auth -> 
                                                 auth
                                                 .requestMatchers("/user/all").hasAuthority("Admin")
+                                                .requestMatchers("/user/save").permitAll()
                                                 .requestMatchers("/user/**").hasAnyAuthority("Admin", "User")
-                                                // .requestMatchers("/chat").permitAll()
-                                                .requestMatchers("/logout").permitAll()
+                                                .requestMatchers("/chat/**").permitAll()
                                                 .requestMatchers("/about").permitAll()
                                                 .requestMatchers("/").permitAll()
                                     )

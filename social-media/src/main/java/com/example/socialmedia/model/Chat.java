@@ -30,7 +30,6 @@ public class Chat {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "chat", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Message> messages = new ArrayList<>();
 

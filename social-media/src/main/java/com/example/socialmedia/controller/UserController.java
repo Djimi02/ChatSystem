@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.socialmedia.model.Chat;
 import com.example.socialmedia.model.User;
 import com.example.socialmedia.service.UserService;
 
@@ -29,7 +30,12 @@ public class UserController {
 
     @GetMapping("/profile")
     public String getAythenticatedUser() {
-        return userService.retrieveAuthenticatedUser();
+        return userService.retrieveAuthenticatedUserInfo();
+    }
+
+    @GetMapping("profile/chats")
+    public List<Chat> userChats() {
+        return userService.retrieveAuthenticatedUser().getChats();
     }
 
     @PostMapping("/save")

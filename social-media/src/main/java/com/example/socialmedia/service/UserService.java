@@ -105,7 +105,21 @@ public class UserService implements UserDetailsService {
         return new UserDetailsImpl(userOpt.get());
     }
 
-    public String retrieveAuthenticatedUser() {
+    public User retrieveAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.isAuthenticated()) {
+            throw new IllegalStateException("No user is authenticated!");
+        }
+
+        Optional<User> userOpt = userRepository.findByEmail(authentication.getName());
+        if (userOpt.isEmpty()) {
+            throw new IllegalStateException("Bruh");
+        }
+
+        return userOpt.get();
+    }
+
+    public String retrieveAuthenticatedUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.isAuthenticated()) {
             return "No user is authenticated!";
