@@ -33,6 +33,15 @@ public class ChatService {
     @Lazy
     private ChatService chatService;
 
+    public Chat retrieveChatById(Long chatID) {
+        Optional<Chat> chatOPT = chatRepository.findById(chatID);
+        if (chatOPT.isEmpty()) {
+            throw new IllegalArgumentException("Chat with id= " + chatID + " does not exist!");
+        }
+
+        return chatOPT.get();
+    }
+
     public void saveChat(Chat chat) {
         if (chat.getName() == null) {
             throw new IllegalArgumentException("Chat name should be provided.");

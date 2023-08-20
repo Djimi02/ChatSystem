@@ -56,6 +56,11 @@ public class ChatServiceTest {
         Message message = new Message("Message 4 in chat 1.");
 
         service.addMessageToChat(chatID, userID, message);
+        // service.addMessageToChat(1l, 2l, new Message("Masha in chat 1 message"));
+        // service.addMessageToChat(1l, 3l, new Message("Gogo in chat 1 message"));
+        // service.addMessageToChat(2l, 2l, new Message("Masha in chat 2 message"));
+        // service.addMessageToChat(2l, 3l, new Message("Gogo in chat 2 message"));
+        // service.addMessageToChat(3l, 3l, new Message("Masha in chat 3 message"));
     }
 
     @Test

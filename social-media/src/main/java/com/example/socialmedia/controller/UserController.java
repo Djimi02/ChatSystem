@@ -1,5 +1,6 @@
 package com.example.socialmedia.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.socialmedia.model.Chat;
 import com.example.socialmedia.model.User;
+import com.example.socialmedia.service.ChatService;
 import com.example.socialmedia.service.UserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
     private UserService userService;
+    private ChatService chatService;
+
+    public UserController(UserService userService, ChatService chatService) {
+        this.userService = userService;
+        this.chatService = chatService;
+    }
 
     @GetMapping("/all")
     public List<User> getAllUsers() {
@@ -34,8 +41,18 @@ public class UserController {
     }
 
     @GetMapping("profile/chats")
-    public List<Chat> userChats() {
-        return userService.retrieveAuthenticatedUser().getChats();
+    public List<Chat> userChats(@RequestParam(name = "id", required = false) Long chatID) {
+        if (chatID == null) {
+            return userService.retrieveAuthenticatedUser().getChats();
+        }
+
+        Chat chat = chatService.retrieveChatById(chatID);
+
+        if (!chat.doesUserExist(userService.retrieveAuthenticatedUser().getId())) {
+            throw new IllegalArgumentException("You are not part of the chat with id= " + chatID + ".");
+        }
+
+        return Arrays.asList(chat);
     }
 
     @PostMapping("/save")
