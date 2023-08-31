@@ -46,6 +46,8 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("User should have email upon saving.");
         } else if (!emailMatches(user.getEmail())) {
             throw new IllegalArgumentException("User should have valid email upon saving.");
+        } else if (userRepository.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("This email is already in use.");
         }
 
         userRepository.save(user);

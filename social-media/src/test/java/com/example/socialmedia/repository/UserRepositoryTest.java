@@ -1,5 +1,7 @@
 package com.example.socialmedia.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -45,6 +47,16 @@ public class UserRepositoryTest {
             System.out.println("Chat members = " + user.getChats().get(0).getUsers().size());
         }
 
+    }
+
+    @Test
+    public void existsByEmail() {
+        String email = "gogo@gmail.com";
+        boolean expected = true;
+
+        boolean result = repository.existsByEmail(email);
+
+        assertEquals(expected, result);
     }
 
 }
