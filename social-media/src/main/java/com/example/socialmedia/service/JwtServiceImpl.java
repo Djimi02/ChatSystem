@@ -31,7 +31,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public boolean isTokenValid(String token, UserDetailsImpl userDetails) {
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
@@ -65,5 +65,5 @@ public class JwtServiceImpl implements JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(signingKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-    
+ 
 }
