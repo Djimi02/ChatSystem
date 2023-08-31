@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.socialmedia.model.Message;
+import com.example.socialmedia.service.implementation.MessageService;
 
 @SpringBootTest
 public class MessageServiceTest {

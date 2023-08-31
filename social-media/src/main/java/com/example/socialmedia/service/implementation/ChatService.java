@@ -1,4 +1,4 @@
-package com.example.socialmedia.service;
+package com.example.socialmedia.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;

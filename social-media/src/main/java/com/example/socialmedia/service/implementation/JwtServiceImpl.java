@@ -1,4 +1,4 @@
-package com.example.socialmedia.service;
+package com.example.socialmedia.service.implementation;
 
 import java.security.Key;
 import java.util.Date;
@@ -7,8 +7,9 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
-import com.example.socialmedia.model.UserDetailsImpl;
+import com.example.socialmedia.service.JwtService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -16,9 +17,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+@Service
 public class JwtServiceImpl implements JwtService {
 
-    private final String signingKey = "282BB6CE8CB786A6B2FD7F67A3477";
+    private final String signingKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
 
     @Override
     public String extractUserName(String token) {
@@ -26,7 +28,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String generateToken(UserDetailsImpl userDetails) {
+    public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 

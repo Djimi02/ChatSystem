@@ -55,6 +55,13 @@ public class User {
         this.role = role;
     }
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = "User";
+    }
+
     public void addChat(Chat chat) {
         this.chats.add(chat);
     }

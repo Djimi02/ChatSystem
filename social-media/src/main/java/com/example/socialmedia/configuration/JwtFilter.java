@@ -10,9 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.socialmedia.model.UserDetailsImpl;
 import com.example.socialmedia.service.JwtService;
-import com.example.socialmedia.service.UserService;
+import com.example.socialmedia.service.implementation.UserService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -35,8 +34,16 @@ public class JwtFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
+
+        if (authHeader == null) {
+            filterChain.doFilter(request, response);
+            System.out.println("EXIT 1 ==========================================================");
+            return;
+        }
+
         if (authHeader.isEmpty() || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
+            System.out.println("EXIT 2 ==========================================================");
             return;
         }
         // if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
@@ -59,6 +66,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
+        System.out.println("EXIT 3 ==========================================================");
         filterChain.doFilter(request, response);
     }
     

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.socialmedia.model.Chat;
 import com.example.socialmedia.model.User;
-import com.example.socialmedia.service.ChatService;
-import com.example.socialmedia.service.UserService;
+import com.example.socialmedia.service.implementation.ChatService;
+import com.example.socialmedia.service.implementation.UserService;
 
 @RestController
 @RequestMapping("/user")

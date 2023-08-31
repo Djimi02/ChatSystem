@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.socialmedia.model.Chat;
-import com.example.socialmedia.service.ChatService;
+import com.example.socialmedia.service.implementation.ChatService;
 
 @RestController
 @RequestMapping("/chat")
