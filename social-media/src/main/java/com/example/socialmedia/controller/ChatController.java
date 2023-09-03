@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.socialmedia.model.Chat;
+import com.example.socialmedia.model.Message;
 import com.example.socialmedia.service.implementation.ChatService;
 
 @RestController
@@ -21,7 +22,8 @@ public class ChatController {
 
     @PostMapping("/save")
     public String saveChat(@RequestBody Chat chat) {
-        chatService.saveChat(chat);
+        Long chatID = chatService.saveChat(chat);
+        chatService.addUserToChat(chatID);
 
         return "New chat is saved.";
     }
@@ -41,16 +43,23 @@ public class ChatController {
     }
 
     @PostMapping("/join")
-    public String addUserToChat(@RequestParam(name = "chatid") Long chatID, @RequestParam(name = "userid") Long userID) {
-        chatService.addUserToChat(chatID, userID);
+    public String addUserToChat(@RequestParam(name = "chatid") Long chatID) {
+        chatService.addUserToChat(chatID);
 
-        return "User with id=" + userID + " is added to chat with id=" + chatID + ".";
+        return "You are added to chat with id=" + chatID + ".";
     }
 
     @PostMapping("/leave")
-    public String removeUserFromChat(@RequestParam(name = "chatid") Long chatID, @RequestParam(name = "userid") Long userID) {
-        chatService.removeUserChatRelation(chatID, userID);
+    public String removeUserFromChat(@RequestParam(name = "chatid") Long chatID) {
+        chatService.removeUserChatRelation(chatID);
 
-        return "User with id=" + userID + " is removed from chat with id=" + chatID + ".";
+        return "You are removed from chat with id=" + chatID + ".";
+    }
+
+    @PostMapping("/addmessage")
+    public String addMessageToChat(@RequestParam(name = "chatid") Long chatID, @RequestBody Message message) {
+        chatService.addMessageToChat(chatID, message);
+
+        return "\"" + message.getText() + "\"" + " is added to chat with id= " + chatID + ".";
     }
 }

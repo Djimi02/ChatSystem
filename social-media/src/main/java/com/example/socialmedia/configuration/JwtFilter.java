@@ -37,19 +37,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authHeader == null) {
             filterChain.doFilter(request, response);
-            System.out.println("EXIT 1 ==========================================================");
             return;
         }
 
         if (authHeader.isEmpty() || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
-            System.out.println("EXIT 2 ==========================================================");
             return;
         }
-        // if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWith(authHeader, "Bearer ")) {
-        //     filterChain.doFilter(request, response);
-        //     return;
-        // }
         
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUserName(jwt);
@@ -66,7 +60,6 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
-        System.out.println("EXIT 3 ==========================================================");
         filterChain.doFilter(request, response);
     }
     

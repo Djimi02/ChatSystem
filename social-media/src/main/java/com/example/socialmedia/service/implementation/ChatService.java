@@ -20,14 +20,17 @@ import jakarta.transaction.Transactional;
 @Service
 public class ChatService {
     
-    @Autowired
     private ChatRepository chatRepository;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private MessageRepository messageRepository;
+    private UserService userService;
+
+    public ChatService(ChatRepository chatRepository, UserRepository userRepository, MessageRepository messageRepository, UserService userService) {
+        this.chatRepository = chatRepository;
+        this.userRepository = userRepository;
+        this.messageRepository = messageRepository;
+        this.userService = userService;
+    }
 
     @Autowired
     @Lazy
@@ -42,14 +45,14 @@ public class ChatService {
         return chatOPT.get();
     }
 
-    public void saveChat(Chat chat) {
+    public Long saveChat(Chat chat) {
         if (chat.getName() == null) {
             throw new IllegalArgumentException("Chat name should be provided.");
         } else if (chat.getName().isEmpty()) {
             throw new IllegalArgumentException("Chat name should be provided.");
         }
 
-        this.chatRepository.save(chat);
+        return this.chatRepository.save(chat).getId();
     }
 
     /**
@@ -68,6 +71,10 @@ public class ChatService {
             throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
         }
 
+        if (!chat.doesUserExist(userService.retrieveAuthenticatedUser().getId())) {
+            throw new IllegalArgumentException("You are not part of the chat with id= " + chatID + ".");
+        }
+
         List<User> users = new ArrayList<>(chat.getUsers());
         for (User user : users) {
             chatService.removeUserChatRelation(chatID, user.getId());
@@ -83,6 +90,11 @@ public class ChatService {
         } else {
             throw new IllegalArgumentException("Chat with id=" + chatID + " does not exists.");
         }
+
+        if (!chat.doesUserExist(userService.retrieveAuthenticatedUser().getId())) {
+            throw new IllegalArgumentException("You are not part of the chat with id= " + chatID + ".");
+        }
+
         chat.setName(chatName);
         chatRepository.save(chat);
     }
@@ -115,6 +127,10 @@ public class ChatService {
         user.addChat(chat);
     }
 
+    public void addUserToChat(Long chatID) {
+        chatService.addUserToChat(chatID, userService.retrieveAuthenticatedUser().getId());
+    }
+
     @Transactional
     public void removeUserChatRelation(Long chatID, Long userID) {
         Optional<Chat> chatOpt = chatRepository.findById(chatID);
@@ -139,6 +155,10 @@ public class ChatService {
 
         chat.removeUser(user);
         user.removeChat(chat);
+    }
+
+    public void removeUserChatRelation(Long chatID) {
+        chatService.removeUserChatRelation(chatID, userService.retrieveAuthenticatedUser().getId());
     }
 
     /* ================================== CHAT - MESSAGE ============================================ */
@@ -167,6 +187,10 @@ public class ChatService {
         message.setCreator(user);
         message.setChat(chat);
         messageRepository.save(message);
+    }
+
+    public void addMessageToChat(Long chatID, Message message) {
+        chatService.addMessageToChat(chatID, userService.retrieveAuthenticatedUser().getId(), message);
     }
 
     public void deleteMessage(Long messageID) {

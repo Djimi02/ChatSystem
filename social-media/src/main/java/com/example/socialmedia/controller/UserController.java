@@ -3,7 +3,6 @@ package com.example.socialmedia.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,17 +17,15 @@ import com.example.socialmedia.model.User;
 import com.example.socialmedia.service.implementation.ChatService;
 import com.example.socialmedia.service.implementation.UserService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("/user")
+@AllArgsConstructor
 public class UserController {
 
     private UserService userService;
     private ChatService chatService;
-
-    public UserController(UserService userService, ChatService chatService) {
-        this.userService = userService;
-        this.chatService = chatService;
-    }
 
     @GetMapping("/all")
     public List<User> getAllUsers() {
