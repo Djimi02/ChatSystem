@@ -23,7 +23,7 @@ Message has:
 * Chat
 * Creator(User)
 
-![alt text]()
+![alt text](https://github.com/Djimi02/ChatSystem/blob/main/Images/ChatSystemERD.png)
 
 There is Many-To-Many relationship between User and Chat entities.
 There is Many-To-One relationship between Message and User entities.
@@ -47,3 +47,6 @@ Finally, the endpoint /about is where some simple information is returned. No us
 
 ### Exception Handling
 Exceptions are handled via the class RestControllerExceptionHandler annotated with @ControllerAdvice. Upon exception in one of the controller classes, a ResponseEntity object is created, with the appropriate error code and message, and returned.
+
+### Testing
+Last but not least, several classes testing the User, Chat, Message repositories and services are implemented using JUnit.
