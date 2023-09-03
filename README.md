@@ -1,6 +1,6 @@
 # ChatSystem using Spting Boot
 Here I present a REST API that represents a chat system consisting of users, chats and messages.
-In short, the API is build using Java, Spring Boot 3, Spring Data JPA, PostgreSQL, Spring Security, JWT tokens for authorization.
+In short, the API is built using Java, Spring Boot 3, Spring Data JPA, PostgreSQL, Spring Security, JWT tokens for authorization, JUnit.
 
 ### Models and Entity Relationship Diagram
 User has: 
@@ -25,9 +25,11 @@ Message has:
 
 ![alt text](https://github.com/Djimi02/ChatSystem/blob/main/Images/ChatSystemERD.png)
 
-There is Many-To-Many relationship between User and Chat entities.
-There is Many-To-One relationship between Message and User entities.
-There is Many-To-One relationship between Message and Chat entities.
+There is a Many-To-Many relationship between User and Chat entities.
+
+There is a Many-To-One relationship between Message and User entities.
+
+There is a Many-To-One relationship between Message and Chat entities.
 
 ### Security
 Authentication is implemented using the DaoAuthenticationProvider, UserDetailsService and UserDetails.
